@@ -45,6 +45,12 @@ class Book(models.Model):
         """Retorna a url para acessar um registro detalhado deste livro."""
         return reverse('book-detail', args=[str(self.id)])
 
+    def display_genre(self):
+        """Cria uma sequência para o Genre. Isso é necessário para exibir o Genre no Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = 'Genre'
+
 
 class BookInstance(models.Model):
     """Modelo que representa uma cópia específica de um livro (i. e. que pode ser emprestado da biblioteca)."""
@@ -74,7 +80,7 @@ class BookInstance(models.Model):
 
     def __str__(self):
         """String para representar o objeto Model."""
-        return f'{self.id} ({self.book.title})'
+        return f'{self.id} ({self.book.title}) {self.status} {self.due_back}'
 
 
 class Author(models.Model):
