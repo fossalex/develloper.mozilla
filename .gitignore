@@ -2,4 +2,5 @@
 .idea
 *.bat
 *.sqlite3
-__pycache__/
+catalog/__pycache__/
+__pycache__
